@@ -18,7 +18,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const STARTED = new Date().toISOString();
 const env = process.env;
-const VERSION = '1.01';
+const VERSION = '1.02';
 // Windows writes ModelVault's output to a log file when it runs in the background: give each line the time.
 if (env.MV_LOG_TIMES === '1') {
   for (const k of ['log', 'info', 'warn', 'error']) {

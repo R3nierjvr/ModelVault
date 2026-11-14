@@ -2,8 +2,8 @@
 
 | You want to | Download |
 | --- | --- |
-| Install ModelVault on Windows | **ModelVault-…-Setup.exe** |
-| Run it on Windows without installing | **ModelVault-…-windows-x64.zip** |
+| Install ModelVault on Windows | **ModelVault-…-Windows-Installer.exe** |
+| Run it on Windows without installing | **ModelVault-…-Windows-Portable-x64.zip** |
 | Run it on a NAS or with Docker | **Source code (zip)**, then follow the [setup guide](https://github.com/R3nierjvr/ModelVault#synology-nas-container-manager) |
 
 **Already using ModelVault?** Open **Settings > About** and choose **Download and install**: it picks the right file by itself and keeps your data. On Windows you can also just run the new installer over your current install. (**ModelVault-…-app.zip** is the file the updater uses for NAS and Docker installs.)

@@ -4,7 +4,7 @@ ModelVault for Windows
 A library for your 3D print models, paints, filament, resin and tools. It runs on this PC
 and you use it in your web browser at http://localhost:8420.
 
-Installer (ModelVault-<version>-Setup.exe)
+Installer (ModelVault-<version>-Windows-Installer.exe)
   Run it and follow the steps; no administrator rights are needed. Afterwards start ModelVault
   from the Start menu or the desktop icon: it runs in the background and opens in your browser.
   Start menu > ModelVault also has "Stop ModelVault", "ModelVault (with log window)" for
@@ -46,7 +46,7 @@ Your folders
 Updating
   In ModelVault, open Settings > About and choose "Download and install". ModelVault downloads
   the new version, installs it and restarts by itself. You can also have it check every day.
-  Or by hand: run a newer ModelVault Setup.exe over this install, or for the portable version stop
+  Or by hand: run a newer ModelVault Windows Installer over this install, or for the portable version stop
   ModelVault, replace the "app" folder and start it again. Your data and settings stay as they are.
 
 Differences from the Docker / NAS version

@@ -7,7 +7,7 @@ Unicode true
   !define SRC "ModelVault"
 !endif
 !ifndef OUTFILE
-  !define OUTFILE "ModelVault-Setup.exe"
+  !define OUTFILE "ModelVault-Windows-Installer.exe"
 !endif
 !include "MUI2.nsh"
 !include "LogicLib.nsh"

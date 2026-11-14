@@ -56,8 +56,8 @@ Download from the [latest release](../../releases/latest):
 
 | File | What it is |
 | --- | --- |
-| `ModelVault-<version>-Setup.exe` | **The installer.** Installs for your user, with no administrator prompt. Adds Start menu and desktop shortcuts, and can start ModelVault when you sign in. |
-| `ModelVault-<version>-windows-x64.zip` | **Portable.** Unzip it somewhere permanent and double-click `ModelVault.exe`. |
+| `ModelVault-<version>-Windows-Installer.exe` | **The installer.** Installs for your user, with no administrator prompt. Adds Start menu and desktop shortcuts, and can start ModelVault when you sign in. |
+| `ModelVault-<version>-Windows-Portable-x64.zip` | **Portable.** Unzip it somewhere permanent and double-click `ModelVault.exe`. |
 
 Both include everything they need (Node.js and 7-Zip). ModelVault opens in your browser at `http://localhost:8420`.
 

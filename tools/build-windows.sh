@@ -1,7 +1,7 @@
 #!/bin/sh
 # Builds the Windows downloads in dist/:
-#   ModelVault-<version>-windows-x64.zip   portable: unzip and run "Start ModelVault.cmd"
-#   ModelVault-<version>-Setup.exe         installer (per user, no admin), made with NSIS's makensis
+#   ModelVault-<version>-Windows-Portable-x64.zip   portable: unzip and run ModelVault.exe
+#   ModelVault-<version>-Windows-Installer.exe      installer (per user, no admin), made with NSIS's makensis
 #   ModelVault-<version>-app.zip           the program only, for updating Docker and Node.js installs
 # Usage: sh tools/build-windows.sh [output folder]     (needs npm, zip, makensis, and Mono's mcs for the tray icon)
 set -e
@@ -42,7 +42,7 @@ cp "$ROOT/LICENSE" "$P/licenses/ModelVault-LICENSE.txt"
 # Portable zip: data next to the program, settings.cmd to edit.
 cp -r "$P" "$WORK/portable" && mv "$WORK/portable" "$WORK/zip-ModelVault"
 cp "$ROOT/windows/settings.cmd" "$ROOT/windows/Start with Windows.cmd" "$WORK/zip-ModelVault/"
-(cd "$WORK" && mv zip-ModelVault ModelVault-zip && mkdir zipdir && mv ModelVault-zip zipdir/ModelVault && cd zipdir && rm -f "$OUT/ModelVault-$VERSION-windows-x64.zip" && zip -qr -9 "$OUT/ModelVault-$VERSION-windows-x64.zip" ModelVault)
+(cd "$WORK" && mv zip-ModelVault ModelVault-zip && mkdir zipdir && mv ModelVault-zip zipdir/ModelVault && cd zipdir && rm -f "$OUT/ModelVault-$VERSION-Windows-Portable-x64.zip" && zip -qr -9 "$OUT/ModelVault-$VERSION-Windows-Portable-x64.zip" ModelVault)
 
 # App update for Docker / Node.js installs (used by Settings > About > Download and install): the program only.
 mkdir -p "$WORK/appzip/ModelVault-app"
@@ -52,7 +52,7 @@ cp -r "$ROOT/server" "$ROOT/public" "$ROOT/package.json" "$ROOT/package-lock.jso
 # Installer: data and your settings in %LOCALAPPDATA%\ModelVault, so updates and uninstalling never touch them.
 sed 's/^set "DATA_DIR=.*$/set "DATA_DIR=%LOCALAPPDATA%\\ModelVault\\data"\r/' "$ROOT/windows/settings.cmd" > "$P/settings.cmd"
 cp "$ROOT/windows/user-settings.cmd" "$P/"
-makensis -V2 -DVERSION="$VERSION" -DSRC="$P" -DOUTFILE="$OUT/ModelVault-$VERSION-Setup.exe" "$ROOT/windows/installer.nsi"
+makensis -V2 -DVERSION="$VERSION" -DSRC="$P" -DOUTFILE="$OUT/ModelVault-$VERSION-Windows-Installer.exe" "$ROOT/windows/installer.nsi"
 
 rm -rf "$WORK"
-echo "Built ModelVault $VERSION: windows-x64.zip, Setup.exe and app.zip in $OUT"
+echo "Built ModelVault $VERSION: Windows-Installer.exe, Windows-Portable-x64.zip and app.zip in $OUT"

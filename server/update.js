@@ -1,7 +1,7 @@
 // Checking GitHub for a newer ModelVault, downloading it and installing it.
 //
 // How it installs depends on how ModelVault runs:
-//   windows-installer  ModelVault-<v>-Setup.exe runs silently: it stops ModelVault, updates it and starts it again.
+//   windows-installer  ModelVault-<v>-Windows-Installer.exe runs silently: it stops ModelVault, updates it and starts it again.
 //   windows-portable   the portable zip's "app" folder is copied over this one, then ModelVault restarts.
 //   docker / source    ModelVault-<v>-app.zip's server and public folders are copied over these, then it restarts
 //                      (Docker's restart policy, or the Windows launcher, starts it again).
@@ -74,7 +74,8 @@ export class Updater {
   /** The file this install needs from the release. */
   asset() {
     const a = this.last?.assets || [];
-    const want = { 'windows-installer': /-Setup\.exe$/i, 'windows-portable': /windows-x64\.zip$/i }[this.kind] || /-app\.zip$/i;
+    // Releases before 1.02 named them -Setup.exe and -windows-x64.zip.
+    const want = { 'windows-installer': /-(Windows-Installer|Setup)\.exe$/i, 'windows-portable': /-(Windows-Portable-x64|windows-x64)\.zip$/i }[this.kind] || /-app\.zip$/i;
     return a.find((x) => want.test(x.name)) || null;
   }
   status() {

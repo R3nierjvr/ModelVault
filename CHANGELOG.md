@@ -1,5 +1,9 @@
 # What's new in ModelVault
 
+## 1.02
+- Clearer names for the Windows downloads: **Windows-Installer.exe** and **Windows-Portable-x64.zip**.
+- Stability updates and small improvements.
+
 ## 1.01
 - Stability updates and small improvements.
 
