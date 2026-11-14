@@ -1622,6 +1622,7 @@ button.cchip { cursor: pointer; }
 .tour-grip svg { width: 18px; height: 18px; fill: currentColor; }
 .tour-card h2 { margin: 0 0 6px; font-family: var(--head); font-size: 1.25rem; }
 .tour-card p { margin: 0 0 14px; line-height: 1.55; color: var(--muted); }
+.tour-links { display: flex; flex-wrap: wrap; gap: 8px; margin: -4px 0 16px; }
 .tour-dots { display: flex; gap: 5px; margin-bottom: 14px; }
 .tour-dots i { flex: 1; height: 4px; border-radius: 2px; background: var(--line); }
 .tour-dots i.on { background: var(--accent); }

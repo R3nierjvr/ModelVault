@@ -13,7 +13,9 @@ const STEPS = [
   { target: '#tab-materials', title: 'Materials', text: 'Your filament spools and resin bottles, and how much is left. The Material guide shows what each filament and resin needs, checked against your printers.' },
   { target: '#tab-tools', title: 'Tools', text: 'Your printers, nozzles, airbrushes, brushes and more, with service reminders. Start with Add your printer: pick it from the list and its details fill themselves in.' },
   { target: '#settings-btn', title: 'Settings', text: 'How your models and folders are named, watch folders for new downloads, importing an existing library, backups and updates. You can take this tour again from Settings > About.' },
-  { title: 'You\'re all set', text: 'Add your first models, or bring in the library you already have.', finish: true },
+  { title: 'You\'re all set', text: 'Add your first models, or bring in the library you already have.', allSet: true, extra: true },
+  { target: '.made-by .dino-link', title: 'Support ModelVault', text: 'ModelVault is free, and made by one person in their spare time. If it saves you time, please consider buying me a dinosaur on Ko-fi or sponsoring me on GitHub. The 🦖 at the bottom of the sidebar and Settings > About take you there any time.',
+    links: [{ label: '🦖 Buy me a dinosaur', href: 'https://ko-fi.com/v3sperstudios', primary: true }, { label: 'Sponsor on GitHub', href: 'https://github.com/sponsors/R3nierjvr' }], finish: true },
 ];
 
 let active = null;
@@ -25,7 +27,7 @@ let active = null;
 export function startTour(opts = {}) {
   if (active) return false;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const steps = STEPS.map((s) => (s.finish && opts.platform === 'win32'
+  const steps = STEPS.map((s) => (s.allSet && opts.platform === 'win32'
     ? { ...s, text: `${s.text} On Windows, ModelVault's icon next to the clock shows whether it's running; right-click it to stop ModelVault or view its log.` }
     : s));
   let i = 0, moved = null, drag = null, raf = 0;
@@ -42,6 +44,7 @@ export function startTour(opts = {}) {
       </div>
       <h2 id="tour-title"></h2>
       <p id="tour-text"></p>
+      <div class="tour-links" hidden></div>
       <div class="tour-dots" aria-hidden="true"></div>
       <div class="tour-actions">
         <button type="button" class="link-btn tour-skip">Skip tour</button>
@@ -106,9 +109,13 @@ export function startTour(opts = {}) {
     $('#tour-text').textContent = s.text;
     $('.tour-count').textContent = `${i + 1} of ${steps.length}`;
     [...$('.tour-dots').children].forEach((d, k) => d.classList.toggle('on', k <= i));
-    $('.tour-back').hidden = i === 0 || !!s.finish;
+    $('.tour-back').hidden = i === 0;
     $('.tour-skip').hidden = !!s.finish;
-    $('.tour-extra').hidden = !s.finish || !opts.importLibrary;
+    $('.tour-extra').hidden = !s.extra || !opts.importLibrary;
+    const links = $('.tour-links');
+    links.hidden = !s.links;
+    links.replaceChildren(...(s.links || []).map((l) => Object.assign(document.createElement('a'), {
+      className: `btn small ${l.primary ? 'primary' : 'ghost'}`, href: l.href, target: '_blank', rel: 'noopener noreferrer', textContent: l.label })));
     $('.tour-next').textContent = s.finish ? 'Finish' : s.next || 'Next';
     card.classList.toggle('tour-wide', !s.target);
     place();
@@ -131,10 +138,10 @@ export function startTour(opts = {}) {
   function onKey(e) {
     if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); end(false); }
     else if (e.key === 'ArrowRight' && !steps[i].finish) { e.preventDefault(); show(i + 1); }
-    else if (e.key === 'ArrowLeft' && i > 0 && !steps[i].finish) { e.preventDefault(); show(i - 1); }
+    else if (e.key === 'ArrowLeft' && i > 0) { e.preventDefault(); show(i - 1); }
     else if (e.key === 'Tab') {
       // Keep the keyboard inside the card.
-      const f = [...card.querySelectorAll('button')].filter((b) => !b.hidden);
+      const f = [...card.querySelectorAll('button, a')].filter((b) => !b.hidden && !b.closest('[hidden]'));
       const k = f.indexOf(document.activeElement);
       if (e.shiftKey && k <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
       else if (!e.shiftKey && k === f.length - 1) { e.preventDefault(); f[0].focus(); }

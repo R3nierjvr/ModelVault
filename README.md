@@ -4,6 +4,8 @@
 
 Your files stay yours: ModelVault works with ordinary folders on your own drives, and nothing is uploaded anywhere.
 
+![ModelVault's model library](docs/screenshots/models.webp)
+
 ## What it does
 
 ### Models
@@ -18,10 +20,14 @@ Your files stay yours: ModelVault works with ordinary folders on your own drives
 - **Opens in your slicer:** OrcaSlicer, Bambu Studio, PrusaSlicer and Lychee open straight from ModelVault; for Chitubox the file's path is copied.
 - **Picture optimiser** (NAS version) makes pictures smaller without changing their names or formats.
 
+![A model with its 3D preview, details and categories](docs/screenshots/model.webp)
+
 ### Paints
 - About **6,000 paints** from Citadel, The Army Painter, Vallejo, Tamiya, AK Interactive, Pro Acryl, Scale 75, Mr. Hobby, AMMO and Reaper, with swatches, filters and search by name, code or colour.
 - **Matches across brands**, shade and highlight steps, colour schemes, and a palette from any picture.
 - **My paints, shopping list, paint lists and racks**, plus a paint scheme planner for each model.
+
+![Exploring the paint list by colour](docs/screenshots/paints-explore.webp)
 
 ### Materials
 - Your **filament spools and resin bottles**: colour, material, temperatures and how much is left.
@@ -29,9 +35,13 @@ Your files stay yours: ModelVault works with ordinary folders on your own drives
 - Every filament and resin is checked against your printers: prints well, with care, or can't print, and why.
 - A **material guide** for each kind of filament and resin: temperatures, exposure, washing and curing, and what each needs.
 
+![Filament spools and resin bottles, checked against your printers](docs/screenshots/materials.webp)
+
 ### Tools
 - Your **printers, nozzles, airbrushes, brushes, masks** and more. Pick a printer from about 600 and its details fill themselves in.
 - **Service reminders** and a history for each tool, and a list of what to replace or buy.
+
+![Printers and tools with service reminders](docs/screenshots/tools.webp)
 
 ### Looking after your library
 - **Backups** with or without model files, and **restoring** onto this or another install, on Windows or a NAS.
@@ -85,6 +95,8 @@ DATA_DIR=./data LIBRARY_DIR=./library DOWNLOADS_DIR=./downloads npm start
 ## Getting started
 
 A new library opens with a short guided tour; you can take it again any time from **Settings > About**.
+
+![The guided tour](docs/screenshots/tour.webp)
 
 1. **Add models:** drag files onto the page, use **Add models**, or **Browse downloads**. Check the details in **Imports**, then **Add to library**.
 2. **Already have a library?** Open **Settings > Import existing library** and choose where it comes from (see below).
