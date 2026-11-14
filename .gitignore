@@ -1,0 +1,12 @@
+node_modules/
+dist/
+data/
+downloads/
+telegram/
+library/
+*.log
+.DS_Store
+Thumbs.db
+# Real settings with passwords stay on the NAS only
+docker-compose.override.yml
+.env

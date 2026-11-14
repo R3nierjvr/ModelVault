@@ -1,0 +1,24 @@
+ModelVault
+Copyright (c) 2026 V3sper Studios. All rights reserved.
+
+You may download, install and use ModelVault, including the released Windows
+downloads and the source code as published, for your own use.
+
+You may not, without written permission from V3sper Studios:
+  - copy, modify, adapt or translate the source code or any part of it, except
+    as needed to install and run ModelVault for your own use;
+  - distribute, publish, sublicense, sell or rent ModelVault or any part of it,
+    changed or unchanged;
+  - use the source code, or any part of it, in another product.
+
+ModelVault includes third-party software and data under their own licences
+(Node.js, 7-Zip, three.js, Express, busboy, miniature-paints, SpoolmanDB,
+OpenPrintTag and others). Those parts remain under their own licences, which
+are included with them; this notice does not apply to them.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+V3SPER STUDIOS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

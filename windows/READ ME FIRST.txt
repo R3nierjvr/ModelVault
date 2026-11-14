@@ -1,0 +1,60 @@
+ModelVault for Windows
+======================
+
+A library for your 3D print models, paints, filament, resin and tools. It runs on this PC
+and you use it in your web browser at http://localhost:8420.
+
+Installer (ModelVault-<version>-Setup.exe)
+  Run it and follow the steps; no administrator rights are needed. Afterwards start ModelVault
+  from the Start menu or the desktop icon: it runs in the background and opens in your browser.
+  Start menu > ModelVault also has "Stop ModelVault", "ModelVault (with log window)" for
+  troubleshooting, "ModelVault settings" and the uninstaller.
+  Your data is kept in %LOCALAPPDATA%\ModelVault (database, thumbnails, settings).
+
+Portable zip
+  Unzip it somewhere permanent, for example C:\ModelVault (not inside Downloads), and double-click
+  ModelVault.exe. (Or double-click "Start ModelVault.cmd" to run it in a window that shows what it's
+  doing; closing that window stops it.)
+  Data is kept in the "data" folder next to it. Settings are in settings.cmd (open it in Notepad).
+
+The icon next to the clock
+  While ModelVault runs in the background, its icon sits next to the clock: coloured while it
+  runs, grey when it's stopped. Hover over it to see the version.
+  Click it to open ModelVault. Right-click it for:
+    Start, Stop and Restart ModelVault
+    View log           ModelVault's log (data\logs\ModelVault.log), useful when something goes wrong
+    Start with Windows  start ModelVault in the background when you sign in
+    About ModelVault   the version, where its data is, and Check for updates
+    Quit               stops ModelVault and removes the icon
+  Windows 11 may hide new icons under the ^ arrow next to the clock. Drag the ModelVault icon
+  from there onto the taskbar to keep it in view.
+
+First run
+  Windows may say it protected your PC (SmartScreen), because this program isn't signed:
+  choose "More info", then "Run anyway". (The portable version may ask once for ModelVault.exe.)
+  Windows Firewall may ask about Node.js. Allow "Private networks" if you want to open ModelVault
+  from your phone or tablet (http://<this PC's IP>:8420); choose Cancel if you only use this PC.
+
+Your folders
+  In ModelVault, open Settings > Import existing library:
+  - Library and Downloads: where your organised models live and where new downloads arrive
+    (at first, ModelVault\Library and ModelVault\Downloads in your user folder).
+    Press Change... to pick other folders; ModelVault restarts to switch.
+  - Add a folder...: browse to any folder on this PC, a mapped drive (like M:) or a shared folder
+    (\\nas\3D Models) and add it. Then use Preview to import what it holds.
+
+Updating
+  In ModelVault, open Settings > About and choose "Download and install". ModelVault downloads
+  the new version, installs it and restarts by itself. You can also have it check every day.
+  Or by hand: run a newer ModelVault Setup.exe over this install, or for the portable version stop
+  ModelVault, replace the "app" folder and start it again. Your data and settings stay as they are.
+
+Differences from the Docker / NAS version
+  - Archives: zip and 7z are read by the included 7-Zip; rar uses Windows' own tar.exe
+    (Windows 10 version 1803 or newer).
+  - The picture optimizer (Settings > Pictures) is not included in the Windows version.
+
+Included software
+  Node.js 22 (MIT licence, nodejs.org), 7-Zip 7za 21.07 (GNU LGPL, 7-zip.org, from the 7zip-bin
+  package), three.js, Express and busboy (MIT). Data: SpoolmanDB and OpenPrintTag (MIT),
+  Arcturus5404/miniature-paints (MIT). See the licenses folder.

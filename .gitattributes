@@ -1,0 +1,4 @@
+* text=auto eol=lf
+windows/*.cmd text eol=crlf
+windows/*.vbs text eol=crlf
+windows/*.txt text eol=crlf

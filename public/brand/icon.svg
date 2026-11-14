@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- ModelVault: the V3sper Studios nozzle-and-star mark inside a vault -->
+  <rect x="9" y="54" width="10" height="7" rx="2" fill="#23262a"/>
+  <rect x="45" y="54" width="10" height="7" rx="2" fill="#23262a"/>
+  <rect x="2" y="3" width="60" height="54" rx="12" fill="#3a4048"/>
+  <rect x="3.2" y="4.2" width="57.6" height="51.6" rx="10.8" fill="none" stroke="#4a515a" stroke-width="1.4"/>
+  <rect x="5.5" y="17" width="4" height="7" rx="1.4" fill="#8e969f"/>
+  <rect x="5.5" y="36" width="4" height="7" rx="1.4" fill="#8e969f"/>
+  <circle cx="31" cy="30" r="21.5" fill="#c9ced4"/>
+  <circle cx="31" cy="30" r="21.5" fill="none" stroke="#aeb5bd" stroke-width="1.2"/>
+  <g fill="#8e969f">
+    <circle cx="31" cy="11.2" r="1.5"/><circle cx="44.3" cy="16.7" r="1.5"/><circle cx="49.8" cy="30" r="1.5"/><circle cx="44.3" cy="43.3" r="1.5"/>
+    <circle cx="31" cy="48.8" r="1.5"/><circle cx="17.7" cy="43.3" r="1.5"/><circle cx="12.2" cy="30" r="1.5"/><circle cx="17.7" cy="16.7" r="1.5"/>
+  </g>
+  <circle cx="31" cy="30" r="15.5" fill="#1d2024"/>
+  <g transform="translate(31 30) scale(.6) translate(-24 -25.3)">
+    <rect x="11" y="4" width="26" height="12" rx="2.2" fill="#c9ced4"/>
+    <path d="M19.6 4v12M28.4 4v12" stroke="#8e969f" stroke-width="1.4"/>
+    <path d="M16.5 16h15l-5 9.5h-5z" fill="#aeb5bd"/>
+    <rect x="22.4" y="25" width="3.2" height="2.6" rx=".8" fill="#aeb5bd"/>
+    <path d="M24 27.6v4.4" stroke="#6fd3bd" stroke-width="2" stroke-linecap="round"/>
+    <path d="M24 31.5c.9 5.6 2 6.7 7.6 7.6-5.6.9-6.7 2-7.6 7.6-.9-5.6-2-6.7-7.6-7.6 5.6-.9 6.7-2 7.6-7.6z" fill="#6fd3bd"/>
+  </g>
+  <rect x="54.5" y="24" width="4.5" height="12" rx="2.2" fill="#c9ced4"/>
+</svg>

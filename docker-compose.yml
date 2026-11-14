@@ -1,0 +1,40 @@
+# ModelVault on Synology: Container Manager > Project > Create, point it at this folder (/docker/modelvault).
+# Fill in the places marked CHANGE before building.
+services:
+  modelvault:
+    build: .
+    image: modelvault:latest
+    container_name: modelvault
+    restart: unless-stopped
+    # Lets ModelVault connect network folders you add in Settings > Import existing library.
+    cap_add:
+      - SYS_ADMIN
+      - DAC_READ_SEARCH
+    security_opt:
+      - apparmor:unconfined
+    ports:
+      - "8420:8420"
+    environment:
+      - TZ=UTC                     # CHANGE: your time zone, e.g. Europe/London
+      # Extra folders to browse, watch and import from (name=container path), comma separated.
+      # For example watch=/watch for a download folder to watch, or orynt3d=/orynt3d for an Orynt3D library.
+      - EXTRA_DIRS=watch=/watch
+      # Optional login prompt. Uncomment and set a password:
+      # - APP_USER=admin
+      # - APP_PASSWORD=change-me
+    volumes:
+      - /volume1/docker/modelvault/server:/app/server    # the program itself: updates only need a container restart
+      - /volume1/docker/modelvault/public:/app/public
+      - /volume1/docker/modelvault/data:/data             # database and thumbnails
+      - /volume1/3D Models:/library                       # CHANGE: where your organised models live
+      - /volume1/docker/modelvault/downloads:/downloads   # drop new downloads here
+      - /volume1/docker/modelvault/watch:/watch           # optional: a download folder for ModelVault to watch
+
+# Library on another NAS? Replace the /library line above with "- library:/library" and fill this in:
+# volumes:
+#   library:
+#     driver: local
+#     driver_opts:
+#       type: cifs
+#       device: "//NAS-ADDRESS/SHARED-FOLDER"
+#       o: "addr=NAS-ADDRESS,username=USERNAME,password=PASSWORD,file_mode=0777,dir_mode=0777,vers=3.0"

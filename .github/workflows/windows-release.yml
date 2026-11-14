@@ -1,0 +1,77 @@
+# Builds the Windows installer and portable zip on GitHub, and publishes them as a release.
+# Runs on every push to main that changes the app, and from the Actions tab (Run workflow).
+# The release is named after the version in server/index.js (v1.00 ...): a new version makes a new
+# release; pushing again with the same version replaces that release's files.
+name: Windows release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'server/**'
+      - 'public/**'
+      - 'windows/**'
+      - 'tools/build-windows.sh'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'CHANGELOG.md'
+      - '.github/workflows/windows-release.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: windows-release
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install NSIS, zip and Mono (for the tray icon program)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq nsis zip mono-devel
+
+      - name: Read the version
+        id: v
+        run: echo "version=$(sed -n "s/^const VERSION = '\(.*\)';/\1/p" server/index.js)" >> "$GITHUB_OUTPUT"
+
+      - name: Build the installer and the portable zip
+        run: sh tools/build-windows.sh dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ModelVault-${{ steps.v.outputs.version }}-windows
+          path: dist/*
+
+      - name: Write the release notes
+        env:
+          VERSION: ${{ steps.v.outputs.version }}
+        run: |
+          # This version's section of CHANGELOG.md ("## 1.00" or "## 1.00 Public Release"), then the general notes.
+          awk -v v="## $VERSION" '$0 == v || index($0, v " ") == 1 {on=1; print "## What'"'"'s new in " substr($0, 4); next} /^## / {on=0} on' CHANGELOG.md > notes.md
+          echo >> notes.md
+          cat windows/release-notes.md >> notes.md
+          cat notes.md
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.v.outputs.version }}
+        run: |
+          TAG="v$VERSION"
+          # The title is the tag plus any words after the version in CHANGELOG.md: "v1.00 Public Release".
+          EXTRA=$(awk -v v="## $VERSION " 'index($0, v) == 1 {print substr($0, length(v) + 1); exit}' CHANGELOG.md)
+          TITLE="$TAG${EXTRA:+ $EXTRA}"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/* --clobber
+            gh release edit "$TAG" --title "$TITLE" --notes-file notes.md
+          else
+            gh release create "$TAG" dist/* --target "$GITHUB_SHA" --title "$TITLE" --notes-file notes.md
+          fi

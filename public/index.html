@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ModelVault</title>
+  <link rel="icon" href="/brand/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
+  <link rel="manifest" href="/brand/manifest.webmanifest">
+  <meta name="theme-color" content="#26292e">
+  <!-- The page is dark already: tells tablet and phone browsers not to recolour it with their own dark mode. -->
+  <meta name="color-scheme" content="dark">
+  <meta name="darkreader-lock">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/app.css">
+  <script type="importmap">
+    { "imports": { "three": "/vendor/three/build/three.module.js", "three/addons/": "/vendor/three/examples/jsm/" } }
+  </script>
+</head>
+<body data-tab="models">
+  <a class="skip" href="#grid">Skip to models</a>
+  <!-- Opening splash: the V3sper Studios nozzle prints its star, which is shoved into the vault. -->
+  <div id="splash" class="splash" role="img" aria-label="ModelVault, made by V3sper Studios">
+    <div class="sp-stage">
+      <div class="sp-move">
+        <div class="sp-plate"></div>
+        <svg class="sp-body" viewBox="0 0 64 64" aria-hidden="true"><rect x="9" y="54" width="10" height="7" rx="2" fill="#1c1f23"/><rect x="45" y="54" width="10" height="7" rx="2" fill="#1c1f23"/><rect x="2" y="3" width="60" height="54" rx="12" fill="#3a4048"/><rect x="3.2" y="4.2" width="57.6" height="51.6" rx="10.8" fill="none" stroke="#4a515a" stroke-width="1.4"/><rect x="5.5" y="17" width="4" height="7" rx="1.4" fill="#8e969f"/><rect x="5.5" y="36" width="4" height="7" rx="1.4" fill="#8e969f"/><circle cx="31" cy="30" r="21.5" fill="#1d2024"/><circle cx="31" cy="30" r="20" fill="none" stroke="#15171a" stroke-width="3"/><rect class="sp-handle" x="54.5" y="24" width="4.5" height="12" rx="2.2" fill="#c9ced4"/></svg>
+        <div class="sp-mark">
+          <svg class="sp-noz" viewBox="10.4 3.4 27.2 43.8" aria-hidden="true"><rect x="11" y="4" width="26" height="12" rx="2.2" fill="#c9ced4"/><path d="M19.6 4v12M28.4 4v12" stroke="#8e969f" stroke-width="1.4"/><path d="M16.5 16h15l-5 9.5h-5z" fill="#aeb5bd"/><rect x="22.4" y="25" width="3.2" height="2.6" rx=".8" fill="#aeb5bd"/><path d="M24 27.6v4.4" stroke="#6fd3bd" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="sp-star" viewBox="10.4 3.4 27.2 43.8" aria-hidden="true"><path d="M24 31.5c.9 5.6 2 6.7 7.6 7.6-5.6.9-6.7 2-7.6 7.6-.9-5.6-2-6.7-7.6-7.6 5.6-.9 6.7-2 7.6-7.6z" fill="#6fd3bd"/></svg>
+        </div>
+        <svg class="sp-door" viewBox="9.5 8.5 43 43" aria-hidden="true"><path fill-rule="evenodd" fill="#c9ced4" d="M9.5 30a21.5 21.5 0 1 0 43 0a21.5 21.5 0 1 0 -43 0zM15.5 30a15.5 15.5 0 1 0 31 0a15.5 15.5 0 1 0 -31 0z"/><circle cx="31" cy="30" r="20.9" fill="none" stroke="#aeb5bd" stroke-width="1.2"/><circle cx="31" cy="30" r="15.5" fill="none" stroke="#8e969f" stroke-width="1"/><circle class="sp-bolt" cx="31" cy="11.2" r="1.5"/><circle class="sp-bolt" cx="44.3" cy="16.7" r="1.5"/><circle class="sp-bolt" cx="49.8" cy="30" r="1.5"/><circle class="sp-bolt" cx="44.3" cy="43.3" r="1.5"/><circle class="sp-bolt" cx="31" cy="48.8" r="1.5"/><circle class="sp-bolt" cx="17.7" cy="43.3" r="1.5"/><circle class="sp-bolt" cx="12.2" cy="30" r="1.5"/><circle class="sp-bolt" cx="17.7" cy="16.7" r="1.5"/></svg>
+      </div>
+      <p class="sp-word"><b>ModelVault</b><span>by V3sper Studios</span></p>
+    </div>
+    <button type="button" class="sp-sound" data-state="off" aria-pressed="false" aria-label="Turn sound on"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="on" d="M15.5 9a4.5 4.5 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/><path class="off" d="m16 9.5 5 5m0-5-5 5"/></svg><span class="sp-sound-text"></span></button>
+    <button type="button" class="sp-skip">Skip</button>
+  </div>
+  <script src="/splash.js"></script>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Filters">
+      <div class="brand">
+        <svg viewBox="0 0 64 64" aria-hidden="true" class="brand-mark"> <rect x="9" y="54" width="10" height="7" rx="2" fill="#23262a"/> <rect x="45" y="54" width="10" height="7" rx="2" fill="#23262a"/> <rect x="2" y="3" width="60" height="54" rx="12" fill="#3a4048"/> <rect x="3.2" y="4.2" width="57.6" height="51.6" rx="10.8" fill="none" stroke="#4a515a" stroke-width="1.4"/> <rect x="5.5" y="17" width="4" height="7" rx="1.4" fill="#8e969f"/> <rect x="5.5" y="36" width="4" height="7" rx="1.4" fill="#8e969f"/> <circle cx="31" cy="30" r="21.5" fill="#c9ced4"/> <circle cx="31" cy="30" r="21.5" fill="none" stroke="#aeb5bd" stroke-width="1.2"/> <g fill="#8e969f"> <circle cx="31" cy="11.2" r="1.5"/><circle cx="44.3" cy="16.7" r="1.5"/><circle cx="49.8" cy="30" r="1.5"/><circle cx="44.3" cy="43.3" r="1.5"/> <circle cx="31" cy="48.8" r="1.5"/><circle cx="17.7" cy="43.3" r="1.5"/><circle cx="12.2" cy="30" r="1.5"/><circle cx="17.7" cy="16.7" r="1.5"/> </g> <circle cx="31" cy="30" r="15.5" fill="#1d2024"/> <g transform="translate(31 30) scale(.6) translate(-24 -25.3)"> <rect x="11" y="4" width="26" height="12" rx="2.2" fill="#c9ced4"/> <path d="M19.6 4v12M28.4 4v12" stroke="#8e969f" stroke-width="1.4"/> <path d="M16.5 16h15l-5 9.5h-5z" fill="#aeb5bd"/> <rect x="22.4" y="25" width="3.2" height="2.6" rx=".8" fill="#aeb5bd"/> <path d="M24 27.6v4.4" stroke="#6fd3bd" stroke-width="2" stroke-linecap="round"/> <path d="M24 31.5c.9 5.6 2 6.7 7.6 7.6-5.6.9-6.7 2-7.6 7.6-.9-5.6-2-6.7-7.6-7.6 5.6-.9 6.7-2 7.6-7.6z" fill="#6fd3bd"/> </g> <rect x="54.5" y="24" width="4.5" height="12" rx="2.2" fill="#c9ced4"/> </svg>
+        <span>ModelVault</span>
+        <button id="side-close" type="button" class="icon-btn only-mobile side-close" aria-label="Close the sidebar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div id="paint-side" class="paint-side for-paints" aria-label="Paint filters"></div>
+      <div id="stock-side" class="paint-side for-stock" aria-label="Sections"></div>
+      <label class="search for-models">
+        <span class="sr-only">Search models</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+        <input id="search" type="search" placeholder="Search name, designer, tag…" autocomplete="off">
+      </label>
+      <nav class="views for-models" aria-label="Views">
+        <button class="view-btn" data-view="all" aria-pressed="true">All models <span class="count" id="count-all"></span></button>
+        <button class="view-btn" data-view="fav" aria-pressed="false">Favourites <span class="count" id="count-fav"></span></button>
+        <button class="view-btn" data-view="recent" aria-pressed="false">Added this week <span class="count" id="count-recent"></span></button>
+        <button class="view-btn" data-view="noams" aria-pressed="false">No AMS needed <span class="count" id="count-noams"></span></button>
+      </nav>
+      <div id="filters" class="filters for-models"></div>
+      <button id="clear-filters" class="link-btn for-models" hidden>Clear all filters</button>
+      <div class="side-foot"><button type="button" id="stuck-note" class="stuck-note" hidden></button><div id="jobs" class="jobs" aria-live="polite"></div><p id="stats" class="stats"></p><p class="made-by">Made by <svg viewBox="10.4 3.4 27.2 43.8" aria-hidden="true" class="v3-mark"><rect x="11" y="4" width="26" height="12" rx="2.2" fill="#c9ced4"/><path d="M19.6 4v12M28.4 4v12" stroke="#8e969f" stroke-width="1.4"/><path d="M16.5 16h15l-5 9.5h-5z" fill="#aeb5bd"/><rect x="22.4" y="25" width="3.2" height="2.6" rx=".8" fill="#aeb5bd"/><path d="M24 27.6v4.4" stroke="#6fd3bd" stroke-width="2" stroke-linecap="round"/><path d="M24 31.5c.9 5.6 2 6.7 7.6 7.6-5.6.9-6.7 2-7.6 7.6-.9-5.6-2-6.7-7.6-7.6 5.6-.9 6.7-2 7.6-7.6z" fill="#6fd3bd"/></svg><b>V3sper Studios</b><a class="dino-link" href="https://ko-fi.com/v3sperstudios" target="_blank" rel="noopener noreferrer" title="Buy me a dinosaur on Ko-fi" aria-label="Support ModelVault: buy me a dinosaur on Ko-fi"><span aria-hidden="true">🦖</span></a></p></div>
+    </aside>
+
+    <div id="side-scrim" class="side-scrim" hidden></div>
+    <main class="main">
+      <header class="toolbar">
+        <button id="menu-btn" class="icon-btn only-mobile" aria-label="Show filters" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg>
+        </button>
+        <div class="tabs" role="tablist" aria-label="Sections">
+          <button role="tab" id="tab-models" class="tab" aria-selected="true" aria-controls="grid">Models</button>
+          <button role="tab" id="tab-paints" class="tab" aria-selected="false" aria-controls="paints">Paints</button>
+          <button role="tab" id="tab-materials" class="tab" aria-selected="false" aria-controls="stock">Materials</button>
+          <button role="tab" id="tab-tools" class="tab" aria-selected="false" aria-controls="stock">Tools</button>
+        </div>
+        <span id="result-title" class="result-title for-models" aria-live="polite">All models</span>
+        <span id="paint-title" class="result-title for-paints" aria-live="polite"></span>
+        <span id="stock-title" class="result-title for-stock" aria-live="polite"></span>
+        <div class="toolbar-actions">
+          <button id="imports-btn" class="btn ghost" aria-haspopup="dialog">Imports <span class="badge" id="imports-badge" hidden>0</span></button>
+          <button id="browse-btn" class="btn ghost for-models" aria-haspopup="dialog">Browse downloads</button>
+          <button id="upload-btn" class="btn primary for-models">Add models</button>
+          <button id="paint-add" class="btn primary for-paints">Add a paint</button>
+          <button id="stock-add" class="btn primary for-stock">Add</button>
+          <button id="settings-btn" class="icon-btn" aria-label="Settings" aria-haspopup="dialog">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2M6 6l1.6 1.6M16.4 16.4 18 18M6 18l1.6-1.6M16.4 7.6 18 6"/></svg>
+          </button>
+          <input id="file-input" type="file" multiple hidden accept=".zip,.7z,.rar,.stl,.3mf,.obj,.step,.stp,.gcode,.bgcode,.pdf,image/*,video/*">
+        </div>
+      </header>
+      <div class="view-bar for-models">
+          <label class="select-wrap">
+            <span class="sr-only">Sort by</span>
+            <select id="sort">
+              <option value="new">Newest first</option>
+              <option value="old">Oldest first</option>
+              <option value="name">Name A–Z</option>
+              <option value="designer">Designer</option>
+              <option value="year">Year</option>
+              <option value="size">Largest</option>
+            </select>
+          </label>
+          <label class="select-wrap"><span class="sr-only">Models per page</span>
+            <select id="page-size"><option value="50">50 per page</option><option value="100">100 per page</option><option value="200">200 per page</option><option value="0">Show all</option></select>
+          </label>
+          <label class="select-wrap"><span class="sr-only">Group by</span><select id="group-by"></select></label>
+          <div class="seg" role="group" aria-label="View" id="view-mode">
+            <button data-mode="tiles" aria-pressed="true" title="Tiles"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg><span>Tiles</span></button>
+            <button data-mode="list" aria-pressed="false" title="Detailed list"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg><span>List</span></button>
+            <button data-mode="folders" aria-pressed="false" title="Folders"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2.2h7a2 2 0 0 1 2 2v7.8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/></svg><span>Folders</span></button>
+          </div>
+          <label class="size-wrap" title="Card size">
+            <span class="sr-only">Card size</span>
+            <input id="card-size" type="range" min="160" max="340" step="20" value="220">
+          </label>
+      </div>
+      <div id="active-filters" class="active-filters for-models" aria-live="polite"></div>
+      <section id="grid" class="results for-models" tabindex="-1" aria-label="Models"></section>
+      <div id="sentinel" class="for-models" aria-hidden="true"></div>
+      <div id="empty" class="empty for-models" hidden></div>
+      <section id="paints" class="paints for-paints" aria-label="Paints"></section>
+      <section id="stock" class="paints for-stock" aria-label="Materials and tools"></section>
+    </main>
+  </div>
+
+  <!-- Drop overlay: a print bed whose layers build up while you drag -->
+  <div id="drop" class="drop" aria-hidden="true">
+    <div class="drop-vault" aria-hidden="true">
+      <svg class="dv-body" viewBox="0 0 64 64"><rect x="9" y="54" width="10" height="7" rx="2" fill="#1c1f23"/><rect x="45" y="54" width="10" height="7" rx="2" fill="#1c1f23"/><rect x="2" y="3" width="60" height="54" rx="12" fill="#3a4048"/><rect x="3.2" y="4.2" width="57.6" height="51.6" rx="10.8" fill="none" stroke="#4a515a" stroke-width="1.4"/><rect x="5.5" y="17" width="4" height="7" rx="1.4" fill="#8e969f"/><rect x="5.5" y="36" width="4" height="7" rx="1.4" fill="#8e969f"/><circle cx="31" cy="30" r="21.5" fill="#1d2024"/><circle cx="31" cy="30" r="20" fill="none" stroke="#15171a" stroke-width="3"/><rect x="54.5" y="24" width="4.5" height="12" rx="2.2" fill="#c9ced4"/></svg>
+      <div class="dv-mark"><svg viewBox="10.4 3.4 27.2 43.8"><rect x="11" y="4" width="26" height="12" rx="2.2" fill="#c9ced4"/><path d="M19.6 4v12M28.4 4v12" stroke="#8e969f" stroke-width="1.4"/><path d="M16.5 16h15l-5 9.5h-5z" fill="#aeb5bd"/><rect x="22.4" y="25" width="3.2" height="2.6" rx=".8" fill="#aeb5bd"/><path d="M24 27.6v4.4" stroke="#6fd3bd" stroke-width="2" stroke-linecap="round"/><path d="M24 31.5c.9 5.6 2 6.7 7.6 7.6-5.6.9-6.7 2-7.6 7.6-.9-5.6-2-6.7-7.6-7.6 5.6-.9 6.7-2 7.6-7.6z" fill="#6fd3bd"/></svg></div>
+      <svg class="dv-door" viewBox="9.5 8.5 43 43"><path fill-rule="evenodd" fill="#c9ced4" d="M9.5 30a21.5 21.5 0 1 0 43 0a21.5 21.5 0 1 0 -43 0zM15.5 30a15.5 15.5 0 1 0 31 0a15.5 15.5 0 1 0 -31 0z"/><circle cx="31" cy="30" r="20.9" fill="none" stroke="#aeb5bd" stroke-width="1.2"/><circle cx="31" cy="30" r="15.5" fill="none" stroke="#8e969f" stroke-width="1"/><g fill="#8e969f"><circle cx="31" cy="11.2" r="1.5"/><circle cx="44.3" cy="16.7" r="1.5"/><circle cx="49.8" cy="30" r="1.5"/><circle cx="44.3" cy="43.3" r="1.5"/><circle cx="31" cy="48.8" r="1.5"/><circle cx="17.7" cy="43.3" r="1.5"/><circle cx="12.2" cy="30" r="1.5"/><circle cx="17.7" cy="16.7" r="1.5"/></g></svg>
+    </div>
+    <p class="drop-title">Drop to add to your library</p>
+    <p class="drop-sub">ZIP, 7Z and RAR archives become one model each. Loose STL, 3MF, images and PDFs become one model together.</p>
+  </div>
+
+  <!-- Imports -->
+  <dialog id="imports-dlg" class="sheet" aria-labelledby="imports-h">
+    <header class="sheet-head">
+      <h2 id="imports-h">Imports</h2>
+      <p class="muted">Check the name, cover and categories, then add each model to the library.</p>
+      <label class="check move-mode"><input type="checkbox" class="move-box"><span>Move the original files into the library. Untick to copy and leave the originals where they are.</span></label>
+      <button class="icon-btn close" data-close aria-label="Close imports"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    </header>
+    <div class="imports-scroll">
+      <div id="inbox" class="inbox" hidden></div>
+      <div id="imports-list" class="imports-list"></div>
+    </div>
+  </dialog>
+
+  <!-- Folder browser -->
+  <dialog id="browse-dlg" class="sheet" aria-labelledby="browse-h">
+    <header class="sheet-head">
+      <h2 id="browse-h">Browse downloads</h2>
+      <p class="muted" id="browse-sub">Pick archives, files or folders to import. They are moved into your library when you add them.</p>
+      <button class="icon-btn close" data-close aria-label="Close browser"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    </header>
+    <div class="browse-bar">
+      <label class="select-wrap"><span class="sr-only">Folder</span><select id="browse-root"></select></label>
+      <nav id="crumbs" class="crumbs" aria-label="Folder path"></nav>
+      <label class="search small browse-q"><span class="sr-only">Filter this folder</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><input id="browse-q" type="search" placeholder="Filter…" autocomplete="off"></label>
+      <label class="select-wrap"><span class="sr-only">Sort by</span>
+        <select id="browse-sort">
+          <option value="new">Newest first</option>
+          <option value="old">Oldest first</option>
+          <option value="name">Name A–Z</option>
+          <option value="name-desc">Name Z–A</option>
+          <option value="big">Largest first</option>
+          <option value="small">Smallest first</option>
+          <option value="type">File type</option>
+        </select>
+      </label>
+      <button id="browse-refresh" class="icon-btn" aria-label="Refresh"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12a7 7 0 1 1-2.05-4.95M19 5v4h-4"/></svg></button>
+    </div>
+    <div class="browse-body">
+      <ul id="browse-list" class="browse-list" role="list"></ul>
+      <aside id="browse-preview" class="browse-preview" aria-live="polite"></aside>
+    </div>
+    <footer class="sheet-foot">
+      <div class="browse-status">
+        <span id="browse-sel" class="muted">Nothing selected</span>
+        <button id="browse-dups" class="link-inline" type="button" hidden></button>
+        <span id="browse-trash" class="muted browse-trash" hidden></span>
+      </div>
+      <label class="check move-mode" id="browse-move"><input type="checkbox" class="move-box"><span>Move originals (untick to copy)</span></label>
+      <div class="foot-actions">
+        <button id="browse-pick" class="btn primary" hidden>Use this folder</button>
+        <button id="browse-del" class="btn ghost danger" disabled>Delete…</button>
+        <button id="browse-one" class="btn ghost" disabled>Import as one model</button>
+        <button id="browse-each" class="btn primary" disabled>Import each separately</button>
+      </div>
+    </footer>
+  </dialog>
+
+  <!-- Model detail -->
+  <dialog id="model-dlg" class="sheet wide" aria-labelledby="model-h">
+    <!-- Outside the scrolling columns, so it stays put (and floats beside the window on wide screens). -->
+    <button class="icon-btn model-close" data-close aria-label="Close model"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    <div id="model-drop" class="model-drop" hidden>
+      <div class="mdrop-zone" data-dropzone data-mdrop="cover"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="m4.5 17 5-5 4 4 2.5-2.5 3.5 3.5"/></svg><b>Make it the cover</b><span>A picture, GIF or video</span></div>
+      <div class="mdrop-zone" data-dropzone data-mdrop="files"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4m0 0-4 4m4-4 4 4M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg><b>Add to this model's files</b><span>Any files: pictures, STLs, archives, PDFs…</span></div>
+    </div>
+    <div class="model-layout">
+      <section class="stage-col" aria-label="Preview">
+        <div id="stage" class="stage"></div>
+        <div class="slide-dots" id="slide-dots" role="group" aria-label="Pictures" hidden></div>
+        <div class="stage-info" id="stage-info"></div>
+        <div class="files-head">
+          <h3>Files</h3>
+          <div class="files-actions">
+            <button class="btn small ghost" id="name-archives" hidden>Name archives</button>
+            <button class="btn small ghost" id="add-files">Add files</button>
+            <a class="btn small ghost" id="download-zip" download>Download ZIP</a>
+          </div>
+          <input type="file" id="add-files-input" multiple hidden>
+        </div>
+        <div class="files-tools">
+          <label class="search small"><span class="sr-only">Filter files</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><input id="file-q" type="search" placeholder="Filter files…" autocomplete="off"></label>
+          <div id="file-chips" class="file-chips" role="group" aria-label="File type"></div>
+          <label class="select-wrap small"><span class="sr-only">Group files by</span>
+            <select id="file-group"><option value="folder">Group by folder</option><option value="type">Group by type</option><option value="none">No grouping</option></select></label>
+        </div>
+        <ul id="file-list" class="file-list" role="list"></ul>
+      </section>
+      <section class="meta-col">
+        <header class="meta-head">
+          <h2 id="model-h" class="sr-only">Model details</h2>
+        </header>
+        <form id="model-form" class="model-form">
+          <label class="field"><span>Name</span><input name="name" required maxlength="200"></label>
+          <div class="two">
+            <label class="field"><span>Designer</span><input name="designer" list="designer-list" maxlength="120" placeholder="Who made it?"></label>
+            <label class="field"><span>Year</span><input name="year" type="number" min="1900" max="2200" inputmode="numeric" placeholder="e.g. 2025"></label>
+          </div>
+          <label class="field"><span>Source link</span><input name="source_url" type="url" autocomplete="off" maxlength="1000" placeholder="https://… where you got it"><small id="source-open"></small></label>
+          <div class="check-row">
+            <label class="check"><input type="checkbox" name="favorite"><span>Favourite</span></label>
+            <label class="check"><input type="checkbox" name="noAms"><span>No AMS needed<small class="muted">Multi-colour, but printed in parts or with colour swaps</small></span></label>
+          </div>
+          <div class="field"><span id="mf-cats">Categories</span><div class="cats" id="model-cats" aria-labelledby="mf-cats"></div></div>
+          <label class="field"><span>Tags</span><input name="tags" list="tag-list" placeholder="dragon, articulated, gift"><small class="muted">Separate tags with commas.</small></label>
+          <label class="field"><span>Notes</span><textarea name="notes" rows="4" placeholder="Print settings, scale, filament…"></textarea></label>
+          <div class="field model-scheme"><span>Paint scheme</span><div id="model-scheme"></div></div>
+          <p class="path muted" id="model-path"></p>
+          <p class="outside-note" id="outside-note" hidden></p>
+          <div class="form-actions">
+            <button class="btn primary" type="submit" title="Ctrl+S">Save and close</button>
+            <button class="btn ghost danger" type="button" id="remove-model">Remove…</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </dialog>
+
+  <!-- Settings -->
+  <dialog id="settings-dlg" class="sheet" aria-labelledby="settings-h">
+    <header class="sheet-head">
+      <h2 id="settings-h">Settings</h2>
+      <button class="icon-btn close" data-close aria-label="Close settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+      <div class="tabs" role="tablist" aria-label="Settings sections">
+        <button role="tab" id="tab-general" aria-controls="pane-general" aria-selected="true">Library</button>
+        <button role="tab" id="tab-cats" aria-controls="pane-cats" aria-selected="false" tabindex="-1">Categories</button>
+        <button role="tab" id="tab-watch" aria-controls="pane-watch" aria-selected="false" tabindex="-1">Watch folders</button>
+        <button role="tab" id="tab-existing" aria-controls="pane-existing" aria-selected="false" tabindex="-1">Import existing library</button>
+        <button role="tab" id="tab-backup" aria-controls="pane-backup" aria-selected="false" tabindex="-1">Backup</button>
+        <button role="tab" id="tab-tailscale" aria-controls="pane-tailscale" aria-selected="false" tabindex="-1">Tailscale</button>
+        <button role="tab" id="tab-about" aria-controls="pane-about" aria-selected="false" tabindex="-1">About<span class="tab-dot" id="about-dot" hidden aria-label="Update available"></span></button>
+      </div>
+    </header>
+    <div class="sheet-body">
+      <section id="pane-general" role="tabpanel" aria-labelledby="tab-general">
+        <form id="settings-form" class="set-form">
+          <section class="set-group" aria-labelledby="sg-names">
+            <header><h3 id="sg-names">Model names</h3><p>How model names are shown on the tiles and in the list. The names you saved, and your files, stay as they are.</p></header>
+            <div class="set-row stacked">
+              <div class="set-label"><label for="display-format"><b>Model name format</b></label><small>Click a detail to add it. Details a model doesn't have are left out, with the dash or brackets around them.</small></div>
+              <div class="set-control">
+                <input id="display-format" name="displayFormat" class="set-input" autocomplete="off" spellcheck="false" placeholder="{name}">
+                <div id="display-tokens" class="cat-chips" role="group" aria-label="Add a detail"></div>
+                <div id="display-examples" class="tpl-examples"></div>
+                <div id="display-preview" class="arch-preview" aria-live="polite"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="set-group" aria-labelledby="sg-archives">
+            <header><h3 id="sg-archives">Archive names</h3><p>Name each model's ZIP, 7Z and RAR files by what's in them, such as the bust, an X-pose or the scale. You can also set the part and scale for each archive on a model's page with "Name archives".</p></header>
+            <label class="set-row">
+              <span class="set-label"><b>Name archives automatically</b><small>When a model is imported or saved. Parts and scales are read from the archive's name, or set by you on the model's page.</small></span>
+              <span class="set-control end"><input type="checkbox" class="switch" name="archiveAuto"></span>
+            </label>
+            <div class="set-row stacked">
+              <div class="set-label"><label for="arch-format"><b>Archive name format</b></label><small>Click a detail to add it. Details an archive doesn't have are left out, with the dash before them.</small></div>
+              <div class="set-control">
+                <input id="arch-format" name="archiveFormat" class="set-input" autocomplete="off" spellcheck="false" placeholder="{name} - {part} - {scale}">
+                <div id="arch-tokens" class="cat-chips" role="group" aria-label="Add a detail"></div>
+                <div id="arch-preview" class="arch-preview" aria-live="polite"></div>
+              </div>
+            </div>
+            <div class="set-row stacked">
+              <div class="set-label"><b>Parts</b><small>The label used in the name, and the words in an archive's name that mean it, separated by commas. Checked from the top. An archive with only pictures inside gets the part whose words include "images".</small></div>
+              <div class="set-control">
+                <div id="arch-parts" class="arch-parts"></div>
+                <div><button type="button" class="btn ghost small" id="arch-part-add">Add a part</button></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="set-group" aria-labelledby="sg-paths">
+            <header><h3 id="sg-paths">Folder paths on your PC</h3><p>How your PC reaches each folder, for "Copy file path" and Chitubox. For example <code>\\nas\share\3D Models</code> or <code>M:\</code>. Network folders fill themselves in.</p></header>
+            <div id="pc-paths" class="pc-paths"></div>
+          </section>
+
+          <section class="set-group" aria-labelledby="sg-folders">
+            <header><h3 id="sg-folders">Library folders</h3><p>Where models are kept and how their folders are named.</p></header>
+            <div class="set-row">
+              <div class="set-label"><b>Library folder</b><small>Set by the container's /library volume.</small></div>
+              <div class="set-control"><p class="mono-path" id="lib-dir"></p></div>
+            </div>
+            <div class="set-row stacked">
+              <div class="set-label"><label for="tpl"><b>Folder name format</b></label><small>Click a detail to add it. Use <code>/</code> for sub-folders. Details a model doesn't have are left out.</small></div>
+              <div class="set-control">
+                <input id="tpl" name="folderPattern" class="set-input" autocomplete="off" spellcheck="false" placeholder="{name} - {year} - {designer}">
+                <div id="tpl-tokens" class="cat-chips" role="group" aria-label="Add a detail"></div>
+                <div id="tpl-examples" class="tpl-examples"></div>
+                <div id="tpl-preview" class="tpl-preview" aria-live="polite"></div>
+              </div>
+            </div>
+            <label class="set-row">
+              <span class="set-label"><b>Rename folders when details change</b><small>A model's folder follows the format above as soon as you save it.</small></span>
+              <span class="set-control end"><input type="checkbox" class="switch" name="autoOrganize"></span>
+            </label>
+            <div class="set-row">
+              <div class="set-label"><b>Organize the whole library</b><small>Renames every folder to the format, names picture folders "img", names archives (if switched on below) and moves in models from other locations.</small></div>
+              <div class="set-control end"><button class="btn ghost small" type="button" id="organize-now">Organize now…</button></div>
+            </div>
+          </section>
+
+          <section class="set-group" aria-labelledby="sg-import">
+            <header><h3 id="sg-import">Importing</h3><p>What happens to new models and their files.</p></header>
+            <label class="set-row">
+              <span class="set-label"><b>Translate foreign names into English</b><small>Russian, Chinese and other non-English names become English, and those files are renamed. The names are sent to a free online translation service.</small></span>
+              <span class="set-control end"><input type="checkbox" class="switch" name="translateNames"></span>
+            </label>
+            <label class="set-row">
+              <span class="set-label"><b>Move models in when I save them</b><small>For models still in another location, such as an Orynt3D library.</small></span>
+              <span class="set-control end"><input type="checkbox" class="switch" name="adoptOnSave"></span>
+            </label>
+            <label class="set-row">
+              <span class="set-label"><b>Unzip archives</b><small>Leave off to save space. Zipped models can still be browsed, previewed and opened in your slicer.</small></span>
+              <span class="set-control end"><input type="checkbox" class="switch" name="extractArchives" id="extract-archives"></span>
+            </label>
+            <div class="set-sub" id="unzip-options">
+              <label class="set-row">
+                <span class="set-label"><b>Keep the original archive</b><small>The ZIP, 7Z or RAR stays in the model folder after unzipping.</small></span>
+                <span class="set-control end"><input type="checkbox" class="switch" name="keepArchive"></span>
+              </label>
+              <label class="set-row">
+                <span class="set-label"><b>Unzip archives inside archives</b></span>
+                <span class="set-control end"><input type="checkbox" class="switch" name="extractNested"></span>
+              </label>
+            </div>
+            <label class="set-row">
+              <span class="set-label"><b>Make 3D previews</b><small>For models that don't have a cover picture.</small></span>
+              <span class="set-control end"><input type="checkbox" class="switch" name="autoThumbs"></span>
+            </label>
+            <label class="set-row">
+              <span class="set-label"><b>Show new models during bulk imports</b><small>Saved in this browser. Single imports always show straight away.</small></span>
+              <span class="set-control end">
+                <select id="refresh-every" class="set-select">
+                  <option value="1">After every model</option>
+                  <option value="5">Every 5 models</option>
+                  <option value="10">Every 10 models</option>
+                  <option value="25">Every 25 models</option>
+                  <option value="50">Every 50 models</option>
+                  <option value="0">When the import finishes</option>
+                </select>
+              </span>
+            </label>
+          </section>
+
+          <section class="set-group" aria-labelledby="sg-pictures">
+            <header><h3 id="sg-pictures">Pictures</h3><p>Make JPG, PNG and WebP pictures smaller, so they take less space and load faster. They keep their name and format. GIFs, videos and pictures inside archives aren't changed.</p></header>
+            <label class="set-row">
+              <span class="set-label"><b>Optimize new pictures automatically</b><small>Pictures of imported models, covers and added files, in the background. A picture is only replaced when the new one is clearly smaller.</small></span>
+              <span class="set-control end"><input type="checkbox" class="switch" name="optimizeImages"></span>
+            </label>
+            <label class="set-row">
+              <span class="set-label"><b>How much smaller</b><small>Balanced looks the same on screen and is usually half the size or less.</small></span>
+              <span class="set-control end">
+                <select name="optimizeStrength" class="set-select">
+                  <option value="balanced">Balanced: up to 2560 pixels, quality 85</option>
+                  <option value="smaller">Smaller: up to 1920 pixels, quality 78</option>
+                  <option value="lossless">Lossless: only remove hidden data</option>
+                </select>
+              </span>
+            </label>
+            <div class="set-row">
+              <div class="set-label"><b>Pictures already in your library</b><small>Shows how many there are before anything changes.</small></div>
+              <div class="set-control end"><button class="btn ghost small" type="button" id="optimize-now">Optimize all pictures now…</button></div>
+            </div>
+            <div class="set-row">
+              <div class="set-label"><b>Space saved</b><small id="optimize-stats-sub">Nothing optimized yet.</small></div>
+              <div class="set-control end"><output class="saved-total" id="optimize-stats" aria-live="polite">0 B</output></div>
+            </div>
+          </section>
+
+          <section class="set-group" aria-labelledby="sg-slicers">
+            <header><h3 id="sg-slicers">Slicers</h3><p>OrcaSlicer, Bambu Studio, PrusaSlicer and Lychee open straight from ModelVault. Chitubox can't be opened from a web page, so the file's path is copied for you to paste into its Open window.</p></header>
+            <label class="set-row">
+              <span class="set-label"><b>Main slicer</b><small>Used by the big "Open in" button.</small></span>
+              <span class="set-control end"><select name="slicer" id="main-slicer" class="set-select"></select></span>
+            </label>
+            <div class="set-row stacked">
+              <div class="set-label"><b>Also show in the Open menu</b></div>
+              <div class="set-control"><div id="slicer-checks" class="pill-checks" role="group" aria-label="Slicers in the Open menu"></div></div>
+            </div>
+          </section>
+
+          <section class="set-group" aria-labelledby="sg-splash">
+            <header><h3 id="sg-splash">Opening animation</h3><p>Plays once each time you open ModelVault. These choices are saved in this browser straight away.</p></header>
+            <label class="set-row">
+              <span class="set-label"><b>Show the opening animation</b></span>
+              <span class="set-control end"><input type="checkbox" class="switch" id="pref-splash"></span>
+            </label>
+            <label class="set-row">
+              <span class="set-label"><b>Play its sound</b><small>On by default. Browsers hold sound back until you've clicked on the page, so if it's silent, tap anywhere on the animation. Installed as an app, it plays straight away.</small></span>
+              <span class="set-control end"><input type="checkbox" class="switch" id="pref-splash-sound"></span>
+            </label>
+            <div class="set-row">
+              <div class="set-label"><b>Watch it again</b></div>
+              <div class="set-control end"><button class="btn ghost small" type="button" id="splash-replay">Play it now</button></div>
+            </div>
+          </section>
+
+          <div class="set-save"><button class="btn primary" type="submit">Save settings</button></div>
+        </form>
+      </section>
+      <section id="pane-cats" role="tabpanel" aria-labelledby="tab-cats" hidden>
+        <p class="muted cat-intro">Categories sort your models and appear as filters in the sidebar. Click a category's name to rename it.</p>
+        <div id="cat-editor" class="cat-editor"></div>
+        <form id="new-group" class="cat-new">
+          <label class="grow"><span class="sr-only">New category name</span><input name="name" class="set-input" placeholder="New category, for example Scale, Material or Game system" required autocomplete="off"></label>
+          <button class="btn primary" type="submit">Add category</button>
+        </form>
+        <details class="fold" id="designers-fold">
+          <summary><span class="fold-title">Designers</span><span class="count" id="designer-count"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg></summary>
+          <div class="fold-body">
+            <p class="muted fold-hint">Rename a designer to fix the name on all their models. Using a name that already exists merges them.</p>
+            <label class="search small"><span class="sr-only">Find a designer</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><input id="designer-q" type="search" placeholder="Find a designer…" autocomplete="off"></label>
+            <div id="designer-editor" class="designer-editor"></div>
+          </div>
+        </details>
+      </section>
+      <section id="pane-watch" role="tabpanel" aria-labelledby="tab-watch" hidden>
+        <p>ModelVault can watch a folder, such as the folder your browser or chat app downloads into, and offer new files as imports. Files downloaded close together are grouped, so a model that arrives as several downloads becomes one import.</p>
+        <form id="watch-form" class="stack">
+          <div class="field">
+            <span>Folders to watch</span>
+            <ul id="watch-list" class="loc-list" role="list" aria-live="polite"></ul>
+            <div class="form-actions"><button class="btn ghost" type="button" id="watch-add">Add a folder to watch…</button><small class="muted" id="watch-add-note"></small></div>
+            <input type="hidden" name="watchFolders">
+          </div>
+          <fieldset class="radios"><legend>When new files arrive</legend>
+            <label><input type="radio" name="watchAuto" value="off"><span><b>Ask me.</b> Show them in Imports and let me choose how to group them.</span></label>
+            <label><input type="radio" name="watchAuto" value="together"><span><b>Prepare automatically, grouped.</b> Files downloaded together become one model.</span></label>
+            <label><input type="radio" name="watchAuto" value="separate"><span><b>Prepare automatically, one per archive.</b> Multi-part archives stay together.</span></label>
+          </fieldset>
+          <div class="two">
+            <label class="field"><span>Group downloads that arrive within (minutes)</span><input name="watchGap" type="number" min="1" max="120"></label>
+            <label class="field"><span>Wait until a file is unchanged for (seconds)</span><input name="watchQuiet" type="number" min="5" max="600"></label>
+          </div>
+          <div><button class="btn primary" type="submit">Save watch settings</button></div>
+        </form>
+      </section>
+      <section id="pane-existing" role="tabpanel" aria-labelledby="tab-existing" hidden>
+        <h3 class="sub-h first">Where is your library coming from?</h3>
+        <div class="src-pick" id="src-pick" role="radiogroup" aria-label="Import from">
+          <button type="button" role="radio" data-src="modelvault" aria-checked="true"><b>ModelVault</b><small>A backup from this or another ModelVault install</small></button>
+          <button type="button" role="radio" data-src="orynt3d" aria-checked="false"><b>Orynt3D</b><small>Names, notes, tags, covers and collections</small></button>
+          <button type="button" role="radio" data-src="other" aria-checked="false"><b>Other model managers</b><small>Manyfold, Thingiverse downloads and more</small></button>
+          <button type="button" role="radio" data-src="folder" aria-checked="false"><b>Any folder</b><small>Folders of models, named by their folders</small></button>
+        </div>
+
+        <section id="src-backup" class="src-panel" aria-labelledby="rs-h">
+          <h3 id="rs-h" class="sub-h">Restore a ModelVault backup</h3>
+          <p class="muted">Bring your models, categories, tags, paints, materials, tools and settings over from a backup, for example after moving ModelVault to another PC or NAS. Make one under Settings &gt; Backup on the old install. On Windows, the library folder changes to the backup's library (a NAS share, say), so the models open from where they are. What's in ModelVault now is kept aside, so nothing is lost.</p>
+          <div class="form-actions">
+            <label class="btn primary file-btn">Choose a backup file…<input type="file" id="restore-file" accept=".zip,application/zip" hidden></label>
+          </div>
+          <div id="restore-saved"></div>
+          <div id="restore-panel" aria-live="polite"></div>
+        </section>
+
+        <div id="src-folders" hidden>
+        <section id="pc-folders" class="netlocs" aria-labelledby="pcf-h" hidden>
+          <h3 id="pcf-h">Folders on this PC</h3>
+          <p class="muted">Add any folder ModelVault should see: on this PC, on a mapped drive (like M:) or on a shared folder. Pick it in the folder browser.</p>
+          <dl id="pc-where" class="pc-where"></dl>
+          <ul id="pc-list" class="loc-list" role="list"></ul>
+          <div class="form-actions"><button class="btn primary" type="button" id="pc-add">Add a folder…</button></div>
+        </section>
+        <section class="netlocs" aria-labelledby="netloc-h">
+          <h3 id="netloc-h">Network folders</h3>
+          <p class="muted">Connect a shared folder on any NAS or PC on your network. Copy its path from the File Explorer address bar.</p>
+          <div id="loc-setup" class="loc-setup" hidden></div>
+          <ul id="loc-list" class="loc-list" role="list"></ul>
+          <form id="loc-form" class="stack loc-form">
+            <label class="field"><span>Network folder</span><input name="networkPath" required autocomplete="off" spellcheck="false" placeholder="\\nas\share\3D Models"></label>
+            <div class="two">
+              <label class="field"><span>Username on that NAS</span><input name="username" required autocomplete="off" spellcheck="false"></label>
+              <label class="field"><span>Password</span><input name="password" type="password" autocomplete="new-password"></label>
+            </div>
+            <label class="field"><span>Name to show in ModelVault <small class="muted">(optional)</small></span><input name="name" autocomplete="off" placeholder="e.g. NAS models"></label>
+            <div class="form-actions"><button class="btn primary" type="submit">Connect</button><span id="loc-msg" class="muted" aria-live="polite"></span></div>
+          </form>
+        </section>
+        <h3 class="sub-h">Import</h3>
+        <p id="scan-intro">Index a folder that already holds models. Your files stay where they are unless you choose to move them.</p>
+        <form id="scan-form" class="stack">
+          <div class="inline-form">
+            <label class="field"><span>Location</span><select name="root" id="scan-root"></select></label>
+            <label class="field grow"><span>Folder</span><input name="path" id="scan-path" placeholder="(top of location)"></label>
+            <button class="btn ghost" type="button" id="scan-browse">Choose…</button>
+          </div>
+          <fieldset class="radios"><legend>What counts as one model</legend>
+            <label><input type="radio" name="mode" value="smart" checked><span><b>Smart.</b> Folders another app has marked as models, plus folders of 3D files. Variant folders like Supported, STL or 32mm are merged into their parent.</span></label>
+            <label><input type="radio" name="mode" value="leaf"><span><b>Every folder</b> that directly contains 3D files or archives.</span></label>
+            <label><input type="radio" name="mode" value="top"><span><b>Each top-level folder</b> inside the chosen folder.</span></label>
+          </fieldset>
+          <fieldset class="radios"><legend>Cover files</legend>
+            <label><input type="radio" name="coverMode" value="copy" checked><span>Save a copy as Cover-{Model Name} (your other app keeps working)</span></label>
+            <label><input type="radio" name="coverMode" value="rename"><span>Rename the cover to Cover-{Model Name}</span></label>
+            <label><input type="radio" name="coverMode" value="none"><span>Leave files untouched</span></label>
+          </fieldset>
+          <label class="check" id="relocate-wrap"><input type="checkbox" name="relocate"><span>Move the model folders into my library folder</span></label>
+          <div class="form-actions">
+            <button class="btn ghost" type="submit">Preview</button>
+            <button class="btn primary" type="button" id="scan-go" disabled>Import</button>
+          </div>
+        </form>
+        <div id="scan-result" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section id="pane-tailscale" role="tabpanel" aria-labelledby="tab-tailscale" hidden>
+        <p class="ts-intro">Open ModelVault on your tablet or phone, at home or away, with <a href="https://tailscale.com" target="_blank" rel="noopener noreferrer">Tailscale</a>: a free app that links your own devices privately. Nothing is opened up to the internet.</p>
+        <section class="about-card" aria-labelledby="ts-link-h">
+          <h3 id="ts-link-h">Open on your tablet</h3>
+          <label class="field" for="ts-address"><span>Tailscale address</span>
+            <input id="ts-address" class="set-input" placeholder="my-pc.tail1234.ts.net or 100.101.102.103" autocomplete="off" spellcheck="false" inputmode="url">
+          </label>
+          <small class="muted">The name or address of this computer in the Tailscale app. ModelVault adds http:// and the port when they're missing.</small>
+          <div id="ts-suggest" class="ts-suggest" aria-live="polite"></div>
+          <div class="ts-qr-row">
+            <div id="ts-qr" class="ts-qr" role="img" aria-label="QR code"></div>
+            <div class="ts-qr-side">
+              <p id="ts-url" class="ts-url"></p>
+              <p class="muted">Scan the code with your tablet's camera, or type the address into its browser. Add it to the home screen to open ModelVault like an app.</p>
+              <div class="form-actions"><button type="button" class="btn ghost small" id="ts-copy">Copy link</button><a class="btn ghost small" id="ts-open" target="_blank" rel="noopener">Open</a></div>
+            </div>
+          </div>
+        </section>
+        <section class="about-card" aria-labelledby="ts-setup-h">
+          <h3 id="ts-setup-h">Setting up Tailscale</h3>
+          <ol id="ts-steps" class="ts-steps"></ol>
+        </section>
+        <section class="about-card" aria-labelledby="ts-help-h">
+          <h3 id="ts-help-h">If the tablet can't connect</h3>
+          <ul id="ts-help" class="ts-help"></ul>
+        </section>
+      </section>
+      <section id="pane-about" role="tabpanel" aria-labelledby="tab-about" hidden>
+        <div class="about-head">
+          <svg class="about-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="12" width="48" height="42" rx="8"/><circle cx="32" cy="33" r="10"/><path d="M32 23v-6M32 49v-6M22 33h-6M48 33h-6"/></svg>
+          <div><h3 id="about-name">ModelVault</h3><p class="muted" id="about-sub">by V3sper Studios</p></div>
+        </div>
+        <section class="about-card" aria-labelledby="upd-h">
+          <h3 id="upd-h">Updates</h3>
+          <div id="upd-status" aria-live="polite"></div>
+          <div id="upd-notes"></div>
+          <div class="set-form upd-switches">
+            <label class="set-row"><span class="set-label"><b>Check for updates every day</b><small>ModelVault asks GitHub once a day and shows a dot on Settings when there's a new version.</small></span><span class="set-control end"><input type="checkbox" class="switch" id="upd-check"></span></label>
+            <label class="set-row"><span class="set-label"><b>Install updates automatically</b><small>When ModelVault isn't busy importing. It restarts by itself, which takes about half a minute.</small></span><span class="set-control end"><input type="checkbox" class="switch" id="upd-auto"></span></label>
+          </div>
+          <details class="upd-token">
+            <summary>GitHub access token</summary>
+            <p class="muted">Only needed while the GitHub repository is private. Create a fine-grained token with read access to the repository's contents, and paste it here. It's kept in ModelVault's data folder, not in backups.</p>
+            <form id="upd-token-form" class="inline-form"><label class="field grow"><span class="sr-only">Access token</span><input type="password" name="token" autocomplete="off" placeholder="github_pat_…"></label><button class="btn ghost" type="submit">Save</button><button class="btn ghost" type="button" id="upd-token-clear" hidden>Remove</button></form>
+          </details>
+        </section>
+        <section class="about-card about-support" aria-labelledby="support-h">
+          <div><h3 id="support-h">Support ModelVault</h3><p class="muted">ModelVault is free. If it saves you time, a dinosaur helps me keep building new features and fixing bugs.</p></div>
+          <div class="form-actions">
+            <a class="btn primary" href="https://ko-fi.com/v3sperstudios" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🦖</span> Buy me a dinosaur</a>
+            <a class="btn ghost" href="https://github.com/sponsors/R3nierjvr" target="_blank" rel="noopener noreferrer">Sponsor on GitHub</a>
+          </div>
+        </section>
+        <section class="about-card about-tour" aria-labelledby="tour-h">
+          <div><h3 id="tour-h">Getting started</h3><p class="muted">A one-minute tour of the main parts of ModelVault.</p></div>
+          <button type="button" class="btn ghost" id="tour-btn">Take the tour</button>
+        </section>
+        <section class="about-card" aria-labelledby="info-h">
+          <h3 id="info-h">This install</h3>
+          <dl id="about-info" class="about-info"></dl>
+        </section>
+        <section class="about-card" aria-labelledby="credits-h">
+          <h3 id="credits-h">Made with</h3>
+          <ul class="about-credits">
+            <li>Paint data from Arcturus5404/miniature-paints (MIT licence)</li>
+            <li>Filament data from SpoolmanDB (MIT licence); resin data from the OpenPrintTag database by Prusa Research (MIT licence)</li>
+            <li>Printer lists from OrcaSlicer and UVtools printer profiles</li>
+            <li>three.js, Express and busboy (MIT licence); 7-Zip on Windows (GNU LGPL)</li>
+            <li>QR codes by qrcode-generator, Kazuhiko Arase (MIT licence)</li>
+          </ul>
+        </section>
+      </section>
+
+      <section id="pane-backup" role="tabpanel" aria-labelledby="tab-backup" hidden>
+        <p>Keep a copy of your library somewhere safe, or move it to another install. Restore one under Import existing library &gt; ModelVault.</p>
+        <div class="backup-kinds">
+          <section class="backup-kind" aria-labelledby="bk-lite">
+            <h3 id="bk-lite">Without model files</h3>
+            <p>Everything you've set up: models' names, details, categories, tags and covers, your paints, materials and tools, and settings. Use it when your model files are already safe on a NAS or another drive.</p>
+            <p class="backup-size" id="bk-lite-size"></p>
+            <div class="form-actions"><a class="btn primary" id="bk-lite-dl" href="/api/backup/download?full=0" download>Download</a><button type="button" class="btn ghost" data-save="0">Save to a folder…</button></div>
+          </section>
+          <section class="backup-kind" aria-labelledby="bk-full">
+            <h3 id="bk-full">With model files</h3>
+            <p>All of the above plus the model folders in your library: 3D files, archives and pictures. Everything you need to start again on a new PC. This can be very big.</p>
+            <p class="backup-size" id="bk-full-size"></p>
+            <div class="form-actions"><button type="button" class="btn primary" data-save="1">Save to a folder…</button><a class="btn ghost" id="bk-full-dl" href="/api/backup/download?full=1" download>Download</a></div>
+          </section>
+        </div>
+        <h3 class="sub-h">Saved backups</h3>
+        <p class="muted">Backups saved to a folder go into a "ModelVault backups" folder there. Copy them to another drive or cloud storage to keep them safe.</p>
+        <div id="backup-list"></div>
+      </section>
+    </div>
+  </dialog>
+
+  <div id="jobs-mobile" class="jobs jobs-mobile" aria-hidden="true"></div>
+  <div id="open-menu" class="open-menu" role="menu" hidden></div>
+  <div id="bulk-bar" class="bulk-bar" hidden role="region" aria-label="Selected models"></div>
+  <dialog id="bulk-dlg" class="sheet narrow" aria-labelledby="bulk-h">
+    <header class="sheet-head"><h2 id="bulk-h">Edit selected models</h2><p class="muted">Only the details you fill in are changed.</p>
+      <button class="icon-btn close" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></header>
+    <form id="bulk-form" class="sheet-body stack">
+      <div class="two">
+        <label class="field"><span>Set designer</span><input name="designer" list="designer-list"></label>
+        <label class="field"><span>Set year</span><input name="year" type="number" min="1900" max="2200"></label>
+      </div>
+      <div class="field"><span>Add categories</span><div id="bulk-cats"></div></div>
+      <label class="field"><span>Add tags</span><input name="tags" list="tag-list" placeholder="Comma separated"></label>
+      <label class="field"><span>No AMS needed</span>
+        <select name="noAms" class="set-select"><option value="">Leave as it is</option><option value="yes">Yes: multi-colour, no AMS needed</option><option value="no">No: clear it</option></select></label>
+      <div class="form-actions"><button class="btn primary" type="submit">Apply changes</button></div>
+    </form>
+  </dialog>
+  <dialog id="lightbox" class="lightbox" aria-label="Pictures">
+    <div class="lb-top">
+      <span class="lb-name" id="lb-name"></span>
+      <span class="lb-count" id="lb-count"></span>
+      <a class="lb-icon" id="lb-download" aria-label="Download this picture" title="Download"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5 5-5M5 19.5h14"/></svg></a>
+      <button class="lb-icon" id="lb-close" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="lb-stage" id="lb-stage"></div>
+    <button class="lb-nav prev" id="lb-prev" aria-label="Previous picture"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 6-6 6 6 6"/></svg></button>
+    <button class="lb-nav next" id="lb-next" aria-label="Next picture"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 6 6 6-6 6"/></svg></button>
+    <div class="lb-dots slide-dots" id="lb-dots" role="group" aria-label="Pictures"></div>
+  </dialog>
+  <dialog id="org-dlg" class="sheet" aria-labelledby="org-h">
+    <header class="sheet-head">
+      <h2 id="org-h">Organize models</h2>
+      <p class="muted" id="org-intro"></p>
+      <button class="icon-btn close" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    </header>
+    <form id="org-form" class="sheet-body org-body">
+      <div class="org-bar" id="org-bar"></div>
+      <div id="org-list" class="org-list"></div>
+      <div class="form-actions org-actions"><button class="btn primary" type="submit" id="org-go">Organize</button><button class="btn ghost" type="button" data-close>Cancel</button></div>
+    </form>
+  </dialog>
+  <dialog id="arch-dlg" class="sheet" aria-labelledby="arch-h">
+    <header class="sheet-head">
+      <h2 id="arch-h">Name archives</h2>
+      <p class="muted" id="arch-intro"></p>
+      <button class="icon-btn close" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    </header>
+    <form id="arch-form" class="sheet-body arch-body">
+      <div id="arch-list" class="arch-list"></div>
+      <datalist id="arch-scales"><option value="1-4"><option value="1-6"><option value="1-8"><option value="1-9"><option value="1-10"><option value="1-12"><option value="1-24"><option value="28mm"><option value="32mm"><option value="54mm"><option value="75mm"><option value="100mm"></datalist>
+      <div class="form-actions"><button class="btn primary" type="submit">Save and close</button><button class="btn ghost" type="button" data-close>Cancel</button></div>
+    </form>
+  </dialog>
+  <dialog id="stuck-dlg" class="sheet" aria-labelledby="stuck-h">
+    <header class="sheet-head">
+      <h2 id="stuck-h">Models that weren't moved</h2>
+      <p class="muted" id="stuck-intro">These folders hold other models, so moving one would carry the others along. Choose what should happen to each.</p>
+      <button class="icon-btn close" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    </header>
+    <form id="stuck-form" class="sheet-body stuck-body">
+      <div class="stuck-all" id="stuck-all"></div>
+      <div id="stuck-list" class="stuck-list"></div>
+      <p class="muted stuck-staying" id="stuck-staying" hidden></p>
+      <div class="form-actions"><button class="btn primary" type="submit" id="stuck-apply">Apply</button><button class="btn ghost" type="button" data-close>Decide later</button></div>
+    </form>
+  </dialog>
+  <dialog id="confirm-dlg" class="confirm" aria-labelledby="confirm-h">
+    <form method="dialog">
+      <h2 id="confirm-h"></h2>
+      <p id="confirm-msg"></p>
+      <div class="form-actions" id="confirm-actions"></div>
+    </form>
+  </dialog>
+
+  <datalist id="designer-list"></datalist>
+  <datalist id="tag-list"></datalist>
+  <div id="toasts" class="toasts" role="status" aria-live="polite"></div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

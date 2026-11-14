@@ -1,0 +1,9 @@
+Node.js (runtime\node.exe) - MIT licence. Copyright Node.js contributors. https://github.com/nodejs/node/blob/main/LICENSE
+7-Zip 7za.exe (bin\7z.exe) - GNU LGPL. Copyright Igor Pavlov. Source and licence: https://www.7-zip.org/license.txt
+  Packaged by 7zip-bin (MIT): see 7zip-bin-LICENSE.txt
+QR codes (app\public\lib\qrcode.js): qrcode-generator by Kazuhiko Arase - MIT; the licence is at the top of the file.
+three.js, Express, busboy and their dependencies (app\node_modules) - MIT; each package folder holds its own licence.
+Paint data: Arcturus5404/miniature-paints (MIT) - app\public\paints\LICENSE-paint-data.txt
+Filament data: SpoolmanDB (MIT) - app\public\materials\LICENSE-filament-data.txt
+Resin data: OpenPrintTag database (MIT, Prusa Research) - app\public\materials\LICENSE-resin-data.txt
+Printer data: facts taken from OrcaSlicer and UVtools printer profiles (build volume, nozzles, screen sizes).
