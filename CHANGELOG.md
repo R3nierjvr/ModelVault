@@ -1,8 +1,7 @@
 # What's new in ModelVault
 
 ## 1.01
-- The guided tour has a 12th step, Support ModelVault, with links to buy me a dinosaur on Ko-fi or sponsor me on GitHub. "You're all set" is now the 11th step, still with Import an existing library.
-- The README has screenshots.
+- Stability updates and small improvements.
 
 ## 1.00 Public Release
 The first public release of ModelVault: a home for your 3D printing hobby that runs on your own Windows PC or NAS.
